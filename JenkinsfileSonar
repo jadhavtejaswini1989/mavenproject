@@ -14,13 +14,13 @@ stages
 
 
  stage('sonar analysis')
- {steps { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
+ {steps { withSonarQubeEnv(credentialsId: 'sonar') {
       sh 'sonar:sonar '
 }} }
 
 stage('generate artifacts')
  {steps { withMaven(globalMavenSettingsConfig: '', jdk: 'java_Home', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-  sh 'mvn package'
+      sh 'mvn package'
 }}}
 
 }}
