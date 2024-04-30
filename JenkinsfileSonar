@@ -14,8 +14,8 @@ stages
 
 
  stage('sonar analysis')
- {steps { withSonarQubeEnv(credentialsId: 'sonar') {
-      sh 'sonar:sonar '
+ {steps { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
+      sh 'sonar:sonar'
 }} }
 
 stage('generate artifacts')
