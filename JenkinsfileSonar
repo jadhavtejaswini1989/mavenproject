@@ -13,15 +13,11 @@ stages
 } }}
 
 
- stage('sonar analysis')
- {steps { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') {
-      sh 'sonar:sonar'
+ stage('sonar analysis and generate artifacts')
+ {steps  { withMaven(globalMavenSettingsConfig: '', jdk: 'java_Home', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
+         { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar')
+           sh 'mvn package sonar:sonar'
 }} }
-
-stage('generate artifacts')
- {steps { withMaven(globalMavenSettingsConfig: '', jdk: 'java_Home', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-      sh 'mvn package'
-}}}
 
 }}
 
