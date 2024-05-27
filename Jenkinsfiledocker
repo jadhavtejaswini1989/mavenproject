@@ -17,5 +17,12 @@ stages
     sh 'mvn package'
 } }}
 
+stage ('build the docker image')
+{steps { sh 'docker build -t jadhavtejaswini1989/mavenproject:1.0 .'
+         sh 'docker images'}}
+
+stage ('upload docker to docker registry')
+{steps { withDockerRegistry(credentialsId: 'DockerhubID', url: 'https://index.docker.io/v1/')
+{sh 'docker push jadhavtejaswini1989/mavenproject:1.0'}}}
 
 }}
