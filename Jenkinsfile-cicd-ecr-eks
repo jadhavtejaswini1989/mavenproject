@@ -25,4 +25,8 @@ stage ('upload docker to docker registry')
 {steps { withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:aws', url: 'https://471091761320.dkr.ecr.ap-southeast-1.amazonaws.com/myecr')
 {sh 'docker push 471091761320.dkr.ecr.ap-southeast-1.amazonaws.com/myecr:latest'}}}
 
+stage ('Deploy to EKS Cluster')
+{steps {withAWS(credentials: 'aws', endpointUrl: '172.31.10.20:443', region: 'ap-southeast-1') {
+    sh 'kubectl apply -f k8s-manifest-file.yml'}}}
+
 }}
