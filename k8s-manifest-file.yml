@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-cicd
+  labels:
+    app: eks-cicd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eks-cicd
+  template:
+    metadata:
+      labels:
+        app: eks-cicd
+    spec:
+      containers:
+      - name: eks-cicd
+        image: 471091761320.dkr.ecr.ap-southeast-1.amazonaws.com/myecr:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eks-cicd-service
+  labels:
+    app: eks-cicd
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: eks-cicd
+  type: LoadBalancer
