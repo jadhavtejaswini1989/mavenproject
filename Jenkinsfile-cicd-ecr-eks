@@ -22,7 +22,7 @@ stage ('build the docker image')
          sh 'docker images'}}
 
 stage ('upload docker to docker registry')
-{steps { withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:aws', url: '471091761320.dkr.ecr.ap-southeast-1.amazonaws.com/myecr')
+{steps { withDockerRegistry(credentialsId: 'ecr:ap-southeast-1:aws', url: 'https://471091761320.dkr.ecr.ap-southeast-1.amazonaws.com/myecr')
 {sh 'docker push 471091761320.dkr.ecr.ap-southeast-1.amazonaws.com/myecr:latest'}}}
 
 }}
